@@ -1,0 +1,9 @@
+C:\Users\User\source\repos\ToDoApi\ToDo.DataBase.Model\bin\Debug\netcoreapp3.1\ToDo.DataBase.Model.deps.json
+C:\Users\User\source\repos\ToDoApi\ToDo.DataBase.Model\bin\Debug\netcoreapp3.1\ToDo.DataBase.Model.dll
+C:\Users\User\source\repos\ToDoApi\ToDo.DataBase.Model\bin\Debug\netcoreapp3.1\ToDo.DataBase.Model.pdb
+C:\Users\User\source\repos\ToDoApi\ToDo.DataBase.Model\obj\Debug\netcoreapp3.1\ToDo.DataBase.Model.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\ToDoApi\ToDo.DataBase.Model\obj\Debug\netcoreapp3.1\ToDo.DataBase.Model.AssemblyInfo.cs
+C:\Users\User\source\repos\ToDoApi\ToDo.DataBase.Model\obj\Debug\netcoreapp3.1\ToDo.DataBase.Model.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\ToDoApi\ToDo.DataBase.Model\obj\Debug\netcoreapp3.1\ToDo.DataBase.Model.dll
+C:\Users\User\source\repos\ToDoApi\ToDo.DataBase.Model\obj\Debug\netcoreapp3.1\ToDo.DataBase.Model.pdb
+C:\Users\User\source\repos\ToDoApi\ToDo.DataBase.Model\obj\Debug\netcoreapp3.1\ToDo.DataBase.Model.csprojAssemblyReference.cache

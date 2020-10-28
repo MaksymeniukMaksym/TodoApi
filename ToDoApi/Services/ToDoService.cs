@@ -1,38 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using ToDoApi.Interfaces;
 using ToDoApi.Models;
 
 namespace ToDoApi.Services
 {
-    public interface IToDoService 
+
+    public class ToDoService: ITodoService
     {
-        IEnumerable<ToDoModel> GetToDos();
-
-        // Guid
-        ToDoModel GetToDosById(int id);
-        void UpdateTodo(int id, ToDoUpdate item);
-        void AddTodo(string title);
-        bool Remove(int id);
-        bool Complete(int id);
-
-
-    }
-
-    public class ToDoService : IToDoService
-    {
-        private List<ToDoModel> _toDos;
+        private List<UserData> _toDosData;
 
         public ToDoService()
         {
-            _toDos = GetDefaultTDos();
+            _toDosData = GetDefaultTDos();
         }
 
 
-        public void AddTodo(string title)
+        public void AddTodo(string userId,string title)
         {
-            int Id = _toDos[_toDos.Count - 1].Id + 1;
+            var user = GetUserTodos(userId);
+            var toDos = user.todos;
+
+            int Id = toDos[toDos.Count - 1].Id + 1;
             var newTodo = new ToDoModel
             {
                 Id = Id,
@@ -41,12 +31,16 @@ namespace ToDoApi.Services
                 DeadLine = DateTime.Now,
                 Complete = false,
             };
-            _toDos.Add(newTodo);
+            toDos.Add(newTodo);
+            user.todos = toDos;
+            AddUserTodos(user);
         }
 
-        public IEnumerable<ToDoModel> GetToDos()
+        public IEnumerable<ToDoModel> GetToDos(string userId)
         {
-            return _toDos;
+            var user = GetUserTodos(userId);
+
+            return user.todos;
         }
 
         public ToDoModel GetToDosById(int id)
@@ -54,28 +48,34 @@ namespace ToDoApi.Services
             throw new NotImplementedException();
         }
 
-        public bool Remove(int id)
+        public bool Remove(string userId ,int id)
         {
-            foreach (ToDoModel todo in _toDos)
+            var user = GetUserTodos(userId);
+            var todos = user.todos;
+            foreach (ToDoModel todo in todos)
             {
                 if (todo.Id == id)
                 {
-                    _toDos.Remove(todo);
-                    Console.WriteLine(todo);
+                    todos.Remove(todo);
+                    user.todos = todos;
+                    UpdateUserTodos(user);
                     return true;
 
                 }
             }
             return false;
         }
-        public bool Complete(int id)
+        public bool Complete(string userId,int id)
         {
-            foreach (ToDoModel todo in _toDos)
+            var user = GetUserTodos(userId);
+            var todos = user.todos;
+            foreach (ToDoModel todo in todos)
             {
                 if (todo.Id == id)
                 {
                     todo.Complete = true;
-                    Console.WriteLine(todo);
+                    user.todos = todos;
+                    UpdateUserTodos(user);
                     return true;
 
                 }
@@ -83,9 +83,11 @@ namespace ToDoApi.Services
             return false;
         }
 
-        public void UpdateTodo(int id, ToDoUpdate item)
+        public void UpdateTodo(string userId,int id, ToDoUpdate item)
         {
-            foreach (ToDoModel todo in _toDos)
+            var user = GetUserTodos(userId);
+            var todos = user.todos;
+            foreach (ToDoModel todo in todos)
             {
                 if (todo.Id == id)
                 {
@@ -102,26 +104,60 @@ namespace ToDoApi.Services
                     todo.Title = item.Title;
                 }
             }
+            user.todos = todos;
+            UpdateUserTodos(user);
         }
 
-        private List<ToDoModel> GetDefaultTDos()
+        private List<UserData> GetDefaultTDos()
         {
-            var toDos = new List<ToDoModel>();
-
-            for (int i = 0; i < 10; i++)
+            var userData = new List<UserData>();
+            for(int j = 0; j <= 1; j++)
             {
-                toDos.Add(new ToDoModel
-                {
-                    Id = i+1,
-                    Title = $"Test{i+1}",
-                    CreateDate  = DateTime.Now,
-                    DeadLine = DateTime.Today.AddDays(1),
-                    EndDate = new DateTime(),
-                    Complete = false,
-                });
-            }
+                var toDos = new List<ToDoModel>();
 
-            return toDos;
+                for (int i = 0; i < 10; i++)
+                {
+                    toDos.Add(new ToDoModel
+                    {
+                        Id = i + 1,
+                        Title = $"Test{i + 1}",
+                        CreateDate = DateTime.Now,
+                        DeadLine = DateTime.Today.AddDays(1),
+                        EndDate = new DateTime(),
+                        Complete = false,
+                    });
+                }
+                userData.Add(
+                    new UserData
+                    {
+                        id = $"test{j}@test.com",
+                        todos = toDos
+
+                    });
+            }
+           
+
+            return userData;
+        }
+        private UserData GetUserTodos(string id)
+        {
+            var user =  _toDosData.FirstOrDefault( user => user.id == id);
+            return user;
+        }
+        private void UpdateUserTodos(UserData userData)
+        {
+            for (int i = 0; i < _toDosData.Count ; i++)
+            {
+                if (_toDosData[i].id == userData.id)
+                {
+                    _toDosData[i] = userData;
+                    return;
+                }
+            }
+        }
+        private void AddUserTodos(UserData userData)
+        {
+            _toDosData.Add(userData);
         }
     }
 }
