@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ToDo.DataBase;
 using ToDoApi.Interfaces;
 using ToDoApi.Models;
+using ToDo.DataBase.Repository.Abstraction;
 
 namespace ToDoApi.Services
 {
@@ -10,10 +12,12 @@ namespace ToDoApi.Services
     public class ToDoService: ITodoService
     {
         private List<UserData> _toDosData;
-
-        public ToDoService()
+        private readonly IDataUserRepository _toDoContext;
+        public ToDoService(IToDoRepository repository)
         {
             _toDosData = GetDefaultTDos();
+            _toDoContext = context;
+
         }
 
 

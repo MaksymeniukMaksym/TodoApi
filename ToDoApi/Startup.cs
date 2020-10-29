@@ -16,6 +16,7 @@ using ToDoApi.Interfaces;
 using ToDoApi.Services;
 using ToDo.DataBase;
 using Microsoft.EntityFrameworkCore;
+using ToDo.DataBase.Extensions;
 
 namespace ToDoApi
 {
@@ -39,10 +40,12 @@ namespace ToDoApi
                 options.UseSqlServer(_configuration.GetConnectionString("Default"));
             });
 
+            services.AddRepositories();
+
             services.AddSingleton<ITodoService, ToDoService>();
             services.AddSingleton<IAuthService, AuthService>();
 
-            services.AddAuthorization();
+            services.AddAuthorization().;
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                    .AddJwtBearer(options =>
                    {
