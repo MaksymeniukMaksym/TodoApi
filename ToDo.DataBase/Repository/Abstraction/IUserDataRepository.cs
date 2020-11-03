@@ -5,7 +5,9 @@ using ToDo.DataBase.Model;
 
 namespace ToDo.DataBase.Repository.Abstraction
 {
-    interface IUserDataRepository: IRepository<UserData>
+   public interface IUserDataRepository: IRepository<UserData>
     {
     }
+   
+
 }

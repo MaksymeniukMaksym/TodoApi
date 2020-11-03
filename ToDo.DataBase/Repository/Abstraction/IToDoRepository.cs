@@ -7,5 +7,8 @@ namespace ToDo.DataBase.Repository.Abstraction
 {
     public interface IToDoRepository: IRepository<ToDoModel>
     {
+        public ToDoModel GetById(int id);
+
+        public void Update(ToDoModel element);
     }
 }

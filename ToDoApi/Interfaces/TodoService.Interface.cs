@@ -8,16 +8,13 @@ namespace ToDoApi.Interfaces
 {
     public interface ITodoService
     {
-        void AddTodo(string userId, string title);
-        IEnumerable<ToDoModel> GetToDos(string userId);
-        
-        // Guid
-        ToDoModel GetToDosById(int id);
-        bool Remove(string userId, int id);
-        bool Complete(string userId, int id);
-        void UpdateTodo(string userId, int id, ToDoUpdate item);
+        void AddTodo(int userId, string title);
+        IEnumerable<ToDoViewModel> GetToDos(int userId);
+        bool Remove(int userId, int id);
+        ToDoViewModel Complete(int id);
+        void UpdateTodo( int id, ToDoUpdate item);
       
-
+       
 
     }
 }

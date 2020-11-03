@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ToDoApi.Models
 {
-    public class ToDoModel
+    public class ToDoViewModel
     {
        public int Id { get; set; }
        public string Title { get; set; }
@@ -14,7 +14,7 @@ namespace ToDoApi.Models
        public DateTime DeadLine { get; set; }
        public DateTime EndDate { get; set; }
        public bool Complete { get; set; }
+       public int UserDataId { get; set; }
 
-      
     }
 }

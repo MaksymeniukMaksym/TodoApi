@@ -7,7 +7,7 @@ namespace ToDo.DataBase.Repository.Abstraction
     public interface IRepository<TEntyti>
     {
         IEnumerable<TEntyti> GetAll();
-        TEntyti Add(TEntyti element);
+        void Add(TEntyti element);
         bool Remove(int id);
     }
 }

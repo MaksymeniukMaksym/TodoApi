@@ -12,6 +12,7 @@ namespace ToDo.DataBase.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IToDoRepository, ToDoRepository>();
+            services.AddScoped<IUserDataRepository, UserDataRepository>();
 
             return services;
         }

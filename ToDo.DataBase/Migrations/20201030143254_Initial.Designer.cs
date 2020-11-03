@@ -10,7 +10,7 @@ using ToDo.DataBase;
 namespace ToDo.DataBase.Migrations
 {
     [DbContext(typeof(ToDoContext))]
-    [Migration("20201029122511_Initial")]
+    [Migration("20201030143254_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,6 +51,18 @@ namespace ToDo.DataBase.Migrations
                     b.HasIndex("UserDataId");
 
                     b.ToTable("Todos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Complete = false,
+                            CreateDate = new DateTime(2020, 10, 30, 16, 32, 54, 465, DateTimeKind.Local).AddTicks(5930),
+                            DeadLine = new DateTime(2020, 10, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Test1",
+                            UserDataId = 1
+                        });
                 });
 
             modelBuilder.Entity("ToDo.DataBase.Model.UserData", b =>
@@ -60,15 +72,25 @@ namespace ToDo.DataBase.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Desk")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("UserDatas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Desk = "Tets desk"
+                        });
                 });
 
             modelBuilder.Entity("ToDo.DataBase.Model.ToDoModel", b =>
                 {
-                    b.HasOne("ToDo.DataBase.Model.UserData", null)
-                        .WithMany("Todos")
+                    b.HasOne("ToDo.DataBase.Model.UserData", "UserData")
+                        .WithMany("ToDoModels")
                         .HasForeignKey("UserDataId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

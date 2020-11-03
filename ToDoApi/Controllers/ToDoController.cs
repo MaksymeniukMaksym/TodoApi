@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using ToDoApi.Interfaces;
@@ -25,17 +26,15 @@ namespace ToDoApi.Controllers
         {
             var claims = User.Identity as ClaimsIdentity;
             var data = claims.Claims;
-            var email = data.First(s => s.Type == ClaimTypes.Email).Value;
-            return Ok(_toDoService.GetToDos(email));
+            var id = Int32.Parse(data.First(s => s.Type == ClaimTypes.NameIdentifier).Value);
+            return Ok(_toDoService.GetToDos(id));
+            
         }
 
         [HttpPut("{id}/complete")]
         public IActionResult Complete([FromRoute] int id)
         {
-            var claims = User.Identity as ClaimsIdentity;
-            var data = claims.Claims;
-            var email = data.First(s => s.Type == ClaimTypes.Email).Value;
-            _toDoService.Complete(email, id);
+            _toDoService.Complete(id);
             return Ok();
         }
         [HttpDelete("{id}")]
@@ -43,18 +42,15 @@ namespace ToDoApi.Controllers
         {
             var claims = User.Identity as ClaimsIdentity;
             var data = claims.Claims;
-            var email = data.First(s => s.Type == ClaimTypes.Email).Value;
-            _toDoService.Remove(email,id);
-            return Ok();
+            var userId = int.Parse(data.First(s => s.Type == ClaimTypes.NameIdentifier).Value);
+            return Ok(_toDoService.Remove(userId, id));
         }
 
         [HttpPut("{id}/update")]
         public IActionResult Update([FromRoute] int id, [FromBody] ToDoUpdate todo)
         {
-            var claims = User.Identity as ClaimsIdentity;
-            var data = claims.Claims;
-            var email = data.First(s => s.Type == ClaimTypes.Email).Value;
-            _toDoService.UpdateTodo(email, id, todo);
+            
+            _toDoService.UpdateTodo(id, todo);
             return Ok();
         }
 
@@ -63,8 +59,8 @@ namespace ToDoApi.Controllers
         {
             var claims = User.Identity as ClaimsIdentity;
             var data = claims.Claims;
-            var email = data.First(s => s.Type == ClaimTypes.Email).Value;
-            _toDoService.AddTodo(email, req.Title);
+            var id = int.Parse( data.First(s => s.Type == ClaimTypes.NameIdentifier).Value);
+            _toDoService.AddTodo(id, req.Title);
             return Ok();
         }
 

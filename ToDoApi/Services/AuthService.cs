@@ -12,14 +12,16 @@ namespace ToDoApi.Services
 {
     public class AuthService : IAuthService
     {
-        private List<User> _users = new List<User> {
-            new User {
+        private List<UserViewModel> _users = new List<UserViewModel> {
+            new UserViewModel {
+                Id = 1,
                 Name = "test",
                 Surname = "test",
                 Email = "test0@test.com",
                 Password = "test",
             },
-            new User {
+            new UserViewModel {
+                Id = 2,
                 Name = "test",
                 Surname = "test",
                 Email = "test1@test.com",
@@ -34,17 +36,7 @@ namespace ToDoApi.Services
                 return null;
             }
             var now = DateTime.UtcNow;
-            // создаем JWT-токен
-            //var jwt = new JwtSecurityToken(
-            //        issuer: AuthOptions.ISSUER,
-            //        audience: AuthOptions.AUDIENCE,
-            //        notBefore: now,
-            //        claims: identity.Claims,
-            //        expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-            //        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-
-            //var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
+      
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -75,7 +67,7 @@ namespace ToDoApi.Services
 
     private ClaimsIdentity GetIdentity(LoginData Data)
         {
-            User user = _users.FirstOrDefault(user => user.Email == Data.Email && user.Password == Data.Password);
+            UserViewModel user = _users.FirstOrDefault(user => user.Email == Data.Email && user.Password == Data.Password);
             if (user != null)
             {
                 var claims = new List<Claim>
@@ -83,7 +75,7 @@ namespace ToDoApi.Services
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, "user"),
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.NameIdentifier, "132")
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
 
                 };
                 ClaimsIdentity claimsIdentity =

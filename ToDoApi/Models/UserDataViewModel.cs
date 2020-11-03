@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace ToDoApi.Models
 {
-    public class UserData
+    public class UserDataViewModel
     {
-       public string id { get; set; }
-       public List<ToDoModel> todos { get; set; }
+        public int Id { get; set; }
+        public List<ToDoViewModel> ToDoModels { get; set; }
     }
 }

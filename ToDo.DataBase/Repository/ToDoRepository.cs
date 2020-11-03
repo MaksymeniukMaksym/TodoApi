@@ -13,5 +13,28 @@ namespace ToDo.DataBase.Repository
     {
         public ToDoRepository(ToDoContext context) : base(context) { }
 
+        public new bool Remove(int id)
+        {
+            ToDoModel model = _entity.Where(o => o.Id == id)
+            .FirstOrDefault();
+            _entity.Remove(model);
+            Save();
+            return true;
+        }
+        public ToDoModel GetById(int id)
+        {
+            ToDoModel model = _entity.Where(o => o.Id == id)
+            .FirstOrDefault();
+            return model;
+        }
+        public void Update(ToDoModel element)
+        {
+            var entity = _entity.Where(o => o.Id == element.Id)
+            .FirstOrDefault();
+            entity = element;
+            _entity.Update(entity);
+            Save();
+        }
+
     }
 }

@@ -17,9 +17,10 @@ namespace ToDo.DataBase.Repository.Abstraction
             _entity = _dbContext.Set<TEntity>();
         }
 
-        public TEntity Add(TEntity element)
+        public void Add(TEntity element)
         {
-            throw new NotImplementedException();
+            _dbContext.Add(element);
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<TEntity> GetAll()
@@ -27,9 +28,9 @@ namespace ToDo.DataBase.Repository.Abstraction
             return _entity.ToList();
         }
 
-        public bool Remove(int id)
+        public bool Remove( int id)
         {
-            throw new NotImplementedException();
+            return false;
         }
         public void Save()
         {

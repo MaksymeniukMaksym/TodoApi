@@ -12,7 +12,8 @@ namespace ToDo.DataBase.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Desk = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -25,12 +26,12 @@ namespace ToDo.DataBase.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserDataId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: false),
                     DeadLine = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
-                    Complete = table.Column<bool>(nullable: false)
+                    Complete = table.Column<bool>(nullable: false),
+                    UserDataId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,6 +43,16 @@ namespace ToDo.DataBase.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "UserDatas",
+                columns: new[] { "Id", "Desk" },
+                values: new object[] { 1, "Tets desk" });
+
+            migrationBuilder.InsertData(
+                table: "Todos",
+                columns: new[] { "Id", "Complete", "CreateDate", "DeadLine", "EndDate", "Title", "UserDataId" },
+                values: new object[] { 1, false, new DateTime(2020, 10, 30, 16, 32, 54, 465, DateTimeKind.Local).AddTicks(5930), new DateTime(2020, 10, 31, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Test1", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Todos_UserDataId",
