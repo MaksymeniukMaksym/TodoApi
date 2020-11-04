@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ToDoApi.Interfaces;
 using ToDoApi.Models;
+using ToDo.DataBase.Model;
 
 namespace ToDoApi.Controllers
 {
@@ -12,10 +14,14 @@ namespace ToDoApi.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private readonly IAuthService _authService;
-        public AuthController(IAuthService authService)
+        private readonly IAuthService _authService; 
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        public AuthController(IAuthService authService, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _authService = authService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpPost("login")]
@@ -31,10 +37,27 @@ namespace ToDoApi.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] LoginData data)
+        public async Task<IActionResult> RegisterAsync(RegisterViewModel model)
         {
-            return Ok();
+            
+                var user = new IdentityUser { UserName = model.Name, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, false);
+                    return Ok();
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
 
+                    return await Task.FromResult(StatusCode(500));
+                }
+            
+          
         }
     }
 }

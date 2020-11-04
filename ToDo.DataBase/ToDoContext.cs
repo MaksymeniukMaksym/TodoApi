@@ -1,20 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using ToDo.DataBase.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace ToDo.DataBase
 {
-    public class ToDoContext : DbContext
+    public class ToDoContext : IdentityDbContext<IdentityUser>
     {
 
         public DbSet<UserData> UserDatas { get; set; }
         public DbSet<ToDoModel> Todos { get; set; }
 
 
+
         public ToDoContext(DbContextOptions<ToDoContext> options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
+            base.OnModelCreating(modelBuilder);
+
            modelBuilder.Entity<UserData>()
             .HasKey(c => c.Id);
 
@@ -26,6 +31,7 @@ namespace ToDo.DataBase
             .WithOne(c => c.UserData)
             .HasForeignKey(c => c.UserDataId)
             .HasPrincipalKey(c => c.Id);
+
 
             modelBuilder.Entity<ToDoModel>().HasData(
                 new ToDoModel
@@ -89,10 +95,11 @@ namespace ToDo.DataBase
             modelBuilder.Entity<UserData>().HasData(
                 new UserData
                     {
-                        Id = 1,
+                        Id = 0,
+                        
                     }, new UserData
                     {
-                        Id = 2,
+                        Id = 1,
                     }
                 );
 

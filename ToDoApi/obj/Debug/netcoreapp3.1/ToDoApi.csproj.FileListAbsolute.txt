@@ -72,5 +72,12 @@ C:\Users\User\source\repos\ToDoApi\ToDoApi\bin\Debug\netcoreapp3.1\Microsoft.Asp
 C:\Users\User\source\repos\ToDoApi\ToDoApi\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 C:\Users\User\source\repos\ToDoApi\ToDoApi\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\User\source\repos\ToDoApi\ToDoApi\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\User\source\repos\ToDoApi\ToDoApi\bin\Debug\netcoreapp3.1\ToDoApi.StaticWebAssets.xml
+C:\Users\User\source\repos\ToDoApi\ToDoApi\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.Views.V3.dll
+C:\Users\User\source\repos\ToDoApi\ToDoApi\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+C:\Users\User\source\repos\ToDoApi\ToDoApi\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.dll
+C:\Users\User\source\repos\ToDoApi\ToDoApi\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\User\source\repos\ToDoApi\ToDoApi\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Embedded.dll
 C:\Users\User\source\repos\ToDoApi\ToDoApi\obj\Debug\netcoreapp3.1\ToDoApi.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\ToDoApi\ToDoApi\obj\Debug\netcoreapp3.1\ToDoApi.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\User\source\repos\ToDoApi\ToDoApi\obj\Debug\netcoreapp3.1\ToDoApi.MvcApplicationPartsAssemblyInfo.cache

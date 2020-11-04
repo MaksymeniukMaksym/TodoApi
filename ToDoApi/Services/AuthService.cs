@@ -14,18 +14,16 @@ namespace ToDoApi.Services
     {
         private List<UserViewModel> _users = new List<UserViewModel> {
             new UserViewModel {
-                Id = 1,
                 Name = "test",
                 Surname = "test",
+                Password ="test",
                 Email = "test0@test.com",
-                Password = "test",
             },
             new UserViewModel {
-                Id = 2,
                 Name = "test",
                 Surname = "test",
-                Email = "test1@test.com",
                 Password = "test",
+                Email = "test1@test.com",
         }
         };
         public LoginResponse Login(LoginData Data)
@@ -67,6 +65,7 @@ namespace ToDoApi.Services
 
     private ClaimsIdentity GetIdentity(LoginData Data)
         {
+            
             UserViewModel user = _users.FirstOrDefault(user => user.Email == Data.Email && user.Password == Data.Password);
             if (user != null)
             {

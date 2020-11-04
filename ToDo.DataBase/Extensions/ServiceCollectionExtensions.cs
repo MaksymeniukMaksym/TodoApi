@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using ToDo.DataBase.Model;
 using ToDo.DataBase.Repository;
 using ToDo.DataBase.Repository.Abstraction;
+using Microsoft.AspNetCore.Identity;
 
 namespace ToDo.DataBase.Extensions
 {
